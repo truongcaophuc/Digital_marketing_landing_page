@@ -1,0 +1,44 @@
+<svg width="80" height="80" viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="tech-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#3b82f6" />
+      <stop offset="100%" stop-color="#4f46e5" />
+    </linearGradient>
+  </defs>
+  
+  <!-- Rocket body -->
+  <path d="M40 10 L45 15 L45 50 L35 50 L35 15 Z" fill="url(#tech-gradient)" opacity="0.8"/>
+  <path d="M40 10 L45 15 L45 50 L35 50 L35 15 Z" stroke="url(#tech-gradient)" stroke-width="2" fill="none"/>
+  
+  <!-- Rocket tip -->
+  <path d="M40 10 L35 15 L45 15 Z" fill="url(#tech-gradient)"/>
+  
+  <!-- Rocket fins -->
+  <path d="M35 40 L25 45 L35 50 Z" fill="url(#tech-gradient)" opacity="0.6"/>
+  <path d="M45 40 L55 45 L45 50 Z" fill="url(#tech-gradient)" opacity="0.6"/>
+  
+  <!-- Rocket window -->
+  <circle cx="40" cy="25" r="4" fill="#ffffff" opacity="0.9"/>
+  <circle cx="40" cy="25" r="4" stroke="url(#tech-gradient)" stroke-width="1" fill="none"/>
+  
+  <!-- Fire/exhaust -->
+  <path d="M37 50 L40 65 L43 50" fill="#ff6b35" opacity="0.8">
+    <animateTransform attributeName="transform" type="scale" values="1;1.2;1" dur="0.5s" repeatCount="indefinite"/>
+  </path>
+  <path d="M38 50 L40 60 L42 50" fill="#ffaa00" opacity="0.9">
+    <animateTransform attributeName="transform" type="scale" values="1;1.1;1" dur="0.3s" repeatCount="indefinite"/>
+  </path>
+  
+  <!-- Stars around -->
+  <g opacity="0.7">
+    <path d="M20 20 L22 25 L27 25 L23 28 L25 33 L20 30 L15 33 L17 28 L13 25 L18 25 Z" fill="url(#tech-gradient)">
+      <animate attributeName="opacity" values="0.7;0.3;0.7" dur="2s" repeatCount="indefinite"/>
+    </path>
+    <path d="M60 30 L61 33 L64 33 L62 35 L63 38 L60 36 L57 38 L58 35 L56 33 L59 33 Z" fill="url(#tech-gradient)">
+      <animate attributeName="opacity" values="0.7;0.3;0.7" dur="1.5s" repeatCount="indefinite"/>
+    </path>
+    <path d="M65 15 L66 17 L68 17 L67 18 L68 20 L65 19 L63 20 L64 18 L62 17 L64 17 Z" fill="url(#tech-gradient)">
+      <animate attributeName="opacity" values="0.7;0.3;0.7" dur="2.5s" repeatCount="indefinite"/>
+    </path>
+  </g>
+</svg>

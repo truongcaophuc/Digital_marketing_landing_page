@@ -1,0 +1,54 @@
+<svg width="80" height="80" viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="restaurant-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#f97316" />
+      <stop offset="100%" stop-color="#dc2626" />
+    </linearGradient>
+  </defs>
+  
+  <!-- Plate -->
+  <circle cx="40" cy="45" r="25" fill="url(#restaurant-gradient)" opacity="0.2"/>
+  <circle cx="40" cy="45" r="25" stroke="url(#restaurant-gradient)" stroke-width="2" fill="none"/>
+  <circle cx="40" cy="45" r="20" stroke="url(#restaurant-gradient)" stroke-width="1" fill="none" opacity="0.5"/>
+  
+  <!-- Food items on plate -->
+  <circle cx="35" cy="40" r="4" fill="url(#restaurant-gradient)" opacity="0.8"/>
+  <circle cx="45" cy="42" r="3" fill="url(#restaurant-gradient)" opacity="0.6"/>
+  <circle cx="40" cy="50" r="3.5" fill="url(#restaurant-gradient)" opacity="0.7"/>
+  <ellipse cx="42" cy="35" rx="3" ry="2" fill="url(#restaurant-gradient)" opacity="0.5"/>
+  
+  <!-- Fork -->
+  <g transform="translate(15, 15)">
+    <line x1="5" y1="5" x2="5" y2="25" stroke="url(#restaurant-gradient)" stroke-width="2"/>
+    <line x1="3" y1="5" x2="3" y2="12" stroke="url(#restaurant-gradient)" stroke-width="1.5"/>
+    <line x1="7" y1="5" x2="7" y2="12" stroke="url(#restaurant-gradient)" stroke-width="1.5"/>
+    <line x1="1" y1="5" x2="1" y2="10" stroke="url(#restaurant-gradient)" stroke-width="1.5"/>
+    <line x1="9" y1="5" x2="9" y2="10" stroke="url(#restaurant-gradient)" stroke-width="1.5"/>
+  </g>
+  
+  <!-- Knife -->
+  <g transform="translate(55, 15)">
+    <line x1="5" y1="5" x2="5" y2="25" stroke="url(#restaurant-gradient)" stroke-width="2"/>
+    <path d="M3 5 L7 5 L6 12 L4 12 Z" fill="url(#restaurant-gradient)" opacity="0.8"/>
+  </g>
+  
+  <!-- Chef hat -->
+  <g transform="translate(30, 5)">
+    <ellipse cx="10" cy="8" rx="8" ry="4" fill="url(#restaurant-gradient)" opacity="0.3"/>
+    <path d="M5 8 Q10 2 15 8 Q15 12 10 12 Q5 12 5 8" fill="url(#restaurant-gradient)" opacity="0.6"/>
+    <line x1="6" y1="10" x2="14" y2="10" stroke="url(#restaurant-gradient)" stroke-width="1" opacity="0.8"/>
+  </g>
+  
+  <!-- Steam/aroma lines -->
+  <g opacity="0.6">
+    <path d="M32 25 Q34 20 32 15" stroke="url(#restaurant-gradient)" stroke-width="1.5" fill="none">
+      <animate attributeName="opacity" values="0.6;0.2;0.6" dur="2s" repeatCount="indefinite"/>
+    </path>
+    <path d="M40 25 Q42 20 40 15" stroke="url(#restaurant-gradient)" stroke-width="1.5" fill="none">
+      <animate attributeName="opacity" values="0.6;0.2;0.6" dur="2.2s" repeatCount="indefinite"/>
+    </path>
+    <path d="M48 25 Q50 20 48 15" stroke="url(#restaurant-gradient)" stroke-width="1.5" fill="none">
+      <animate attributeName="opacity" values="0.6;0.2;0.6" dur="1.8s" repeatCount="indefinite"/>
+    </path>
+  </g>
+</svg>

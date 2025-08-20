@@ -1,0 +1,60 @@
+<svg width="80" height="80" viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="healthcare-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#10b981" />
+      <stop offset="100%" stop-color="#059669" />
+    </linearGradient>
+  </defs>
+  
+  <!-- Medical cross background circle -->
+  <circle cx="40" cy="40" r="28" fill="url(#healthcare-gradient)" opacity="0.2"/>
+  <circle cx="40" cy="40" r="28" stroke="url(#healthcare-gradient)" stroke-width="2" fill="none"/>
+  
+  <!-- Medical cross -->
+  <rect x="35" y="20" width="10" height="40" fill="url(#healthcare-gradient)" rx="2"/>
+  <rect x="20" y="35" width="40" height="10" fill="url(#healthcare-gradient)" rx="2"/>
+  
+  <!-- Stethoscope -->
+  <g transform="translate(10, 10)" opacity="0.8">
+    <!-- Stethoscope tube -->
+    <path d="M5 15 Q15 10 25 15 Q30 20 25 25" stroke="url(#healthcare-gradient)" stroke-width="2" fill="none"/>
+    <path d="M25 25 Q30 30 35 25" stroke="url(#healthcare-gradient)" stroke-width="2" fill="none"/>
+    
+    <!-- Earpieces -->
+    <circle cx="5" cy="15" r="3" fill="url(#healthcare-gradient)" opacity="0.7"/>
+    <circle cx="35" cy="25" r="3" fill="url(#healthcare-gradient)" opacity="0.7"/>
+    
+    <!-- Chest piece -->
+    <circle cx="25" cy="25" r="4" fill="url(#healthcare-gradient)"/>
+    <circle cx="25" cy="25" r="2" fill="#ffffff" opacity="0.8"/>
+  </g>
+  
+  <!-- Heart pulse line -->
+  <g transform="translate(15, 55)" opacity="0.7">
+    <path d="M0 5 L10 5 L15 0 L20 10 L25 0 L30 5 L50 5" stroke="url(#healthcare-gradient)" stroke-width="2" fill="none">
+      <animate attributeName="stroke-dasharray" values="0,100;50,50;100,0" dur="2s" repeatCount="indefinite"/>
+    </path>
+  </g>
+  
+  <!-- Medical pills -->
+  <g opacity="0.6">
+    <ellipse cx="65" cy="20" rx="4" ry="6" fill="url(#healthcare-gradient)">
+      <animate attributeName="opacity" values="0.6;0.3;0.6" dur="3s" repeatCount="indefinite"/>
+    </ellipse>
+    <rect x="63" y="17" width="4" height="6" fill="#ffffff" opacity="0.8"/>
+    
+    <circle cx="15" cy="65" r="3" fill="url(#healthcare-gradient)">
+      <animate attributeName="opacity" values="0.6;0.3;0.6" dur="2.5s" repeatCount="indefinite"/>
+    </circle>
+    <line x1="13" y1="65" x2="17" y2="65" stroke="#ffffff" stroke-width="1"/>
+    <line x1="15" y1="63" x2="15" y2="67" stroke="#ffffff" stroke-width="1"/>
+  </g>
+  
+  <!-- DNA helix -->
+  <g transform="translate(60, 45)" opacity="0.5">
+    <path d="M0 0 Q5 5 0 10 Q-5 15 0 20" stroke="url(#healthcare-gradient)" stroke-width="1.5" fill="none"/>
+    <path d="M5 0 Q0 5 5 10 Q10 15 5 20" stroke="url(#healthcare-gradient)" stroke-width="1.5" fill="none"/>
+    <line x1="0" y1="5" x2="5" y2="5" stroke="url(#healthcare-gradient)" stroke-width="1"/>
+    <line x1="0" y1="15" x2="5" y2="15" stroke="url(#healthcare-gradient)" stroke-width="1"/>
+  </g>
+</svg>
