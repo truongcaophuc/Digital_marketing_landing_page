@@ -13,10 +13,12 @@ import {
   FaCheckCircle,
   FaArrowRight
 } from 'react-icons/fa';
+import { useLanguage } from '../contexts/LanguageContext';
 
 gsap.registerPlugin(ScrollTrigger);
 
 const CTASection = () => {
+  const { t } = useLanguage();
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -124,28 +126,28 @@ const CTASection = () => {
   const benefits = [
     {
       icon: FaRocket,
-      title: 'Tăng Trưởng Nhanh Chóng',
-      description: 'Tăng 300% traffic và doanh số trong 6 tháng đầu tiên'
+      title: t('cta.benefits.growth.title'),
+      description: t('cta.benefits.growth.description')
     },
     {
       icon: FaCheckCircle,
-      title: 'Cam Kết Kết Quả',
-      description: 'Đảm bảo ROI tối thiểu 200% hoặc hoàn tiền 100%'
+      title: t('cta.benefits.guarantee.title'),
+      description: t('cta.benefits.guarantee.description')
     },
     {
       icon: FaUser,
-      title: 'Hỗ Trợ 24/7',
-      description: 'Đội ngũ chuyên gia luôn sẵn sàng hỗ trợ bạn mọi lúc'
+      title: t('cta.benefits.support247.title'),
+      description: t('cta.benefits.support247.description')
     }
   ];
 
   const services = [
-    'SEO Optimization',
-    'Social Media Marketing',
-    'Paid Advertising',
-    'Content Marketing',
-    'Email Marketing',
-    'Tư vấn tổng thể'
+    t('cta.services.seo'),
+    t('cta.services.social_media'),
+    t('cta.services.paid_ads'),
+    t('cta.services.content'),
+    t('cta.services.email'),
+    t('cta.services.consultation')
   ];
 
   return (
@@ -163,12 +165,12 @@ const CTASection = () => {
           <motion.h2 
             className="cta-title text-4xl md:text-5xl font-bold mb-6 bg-gradient-to-r from-cyan-400 to-purple-600 bg-clip-text text-transparent"
           >
-            Sẵn Sàng Phát Triển Doanh Nghiệp?
+            {t('cta.title')}
           </motion.h2>
           <motion.p 
             className="cta-title text-xl text-gray-300 max-w-3xl mx-auto"
           >
-            Nhận tư vấn miễn phí và báo cáo phân tích chi tiết về thị trường của bạn
+            {t('cta.subtitle')}
           </motion.p>
         </div>
         
@@ -181,10 +183,10 @@ const CTASection = () => {
                   <div className="w-8 h-8 bg-gradient-to-r from-cyan-500 to-blue-600 rounded-full flex items-center justify-center">
                     <FaEnvelope className="text-sm text-white" />
                   </div>
-                  Liên Hệ Ngay
+                  {t('cta.form.contact_now')}
                 </h3>
                 <p className="text-gray-400">
-                  Điền thông tin để nhận tư vấn miễn phí từ chuyên gia
+                  {t('cta.form.contact_description')}
                 </p>
               </div>
               
@@ -198,7 +200,7 @@ const CTASection = () => {
                       transition={{ duration: 0.5, delay: 0.1 }}
                     >
                       <label className="block text-sm font-medium text-gray-300 mb-2">
-                        Họ và tên *
+                        {t('cta.form.name_label')}
                       </label>
                       <div className="relative">
                         <FaUser className="absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400" />
@@ -209,7 +211,7 @@ const CTASection = () => {
                           onChange={handleInputChange}
                           required
                           className="w-full pl-12 pr-4 py-3 bg-gray-700/50 border border-gray-600 rounded-xl text-white placeholder-gray-400 focus:border-cyan-500 focus:ring-2 focus:ring-cyan-500/20 transition-all duration-300"
-                          placeholder="Nhập họ và tên"
+                          placeholder={t('cta.form.name_placeholder')}
                         />
                       </div>
                     </motion.div>
@@ -220,7 +222,7 @@ const CTASection = () => {
                       transition={{ duration: 0.5, delay: 0.2 }}
                     >
                       <label className="block text-sm font-medium text-gray-300 mb-2">
-                        Email *
+                        {t('cta.form.email_label')}
                       </label>
                       <div className="relative">
                         <FaEnvelope className="absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400" />
@@ -231,7 +233,7 @@ const CTASection = () => {
                           onChange={handleInputChange}
                           required
                           className="w-full pl-12 pr-4 py-3 bg-gray-700/50 border border-gray-600 rounded-xl text-white placeholder-gray-400 focus:border-cyan-500 focus:ring-2 focus:ring-cyan-500/20 transition-all duration-300"
-                          placeholder="email@example.com"
+                          placeholder={t('cta.form.email_placeholder')}
                         />
                       </div>
                     </motion.div>
@@ -245,7 +247,7 @@ const CTASection = () => {
                       transition={{ duration: 0.5, delay: 0.3 }}
                     >
                       <label className="block text-sm font-medium text-gray-300 mb-2">
-                        Số điện thoại
+                        {t('cta.form.phone_label')}
                       </label>
                       <div className="relative">
                         <FaPhone className="absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400" />
@@ -255,7 +257,7 @@ const CTASection = () => {
                           value={formData.phone}
                           onChange={handleInputChange}
                           className="w-full pl-12 pr-4 py-3 bg-gray-700/50 border border-gray-600 rounded-xl text-white placeholder-gray-400 focus:border-cyan-500 focus:ring-2 focus:ring-cyan-500/20 transition-all duration-300"
-                          placeholder="0123 456 789"
+                          placeholder={t('cta.form.phone_placeholder')}
                         />
                       </div>
                     </motion.div>
@@ -266,7 +268,7 @@ const CTASection = () => {
                       transition={{ duration: 0.5, delay: 0.4 }}
                     >
                       <label className="block text-sm font-medium text-gray-300 mb-2">
-                        Công ty
+                        {t('cta.form.company_label')}
                       </label>
                       <div className="relative">
                         <FaBuilding className="absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400" />
@@ -276,7 +278,7 @@ const CTASection = () => {
                           value={formData.company}
                           onChange={handleInputChange}
                           className="w-full pl-12 pr-4 py-3 bg-gray-700/50 border border-gray-600 rounded-xl text-white placeholder-gray-400 focus:border-cyan-500 focus:ring-2 focus:ring-cyan-500/20 transition-all duration-300"
-                          placeholder="Tên công ty"
+                          placeholder={t('cta.form.company_placeholder')}
                         />
                       </div>
                     </motion.div>
@@ -289,7 +291,7 @@ const CTASection = () => {
                     transition={{ duration: 0.5, delay: 0.5 }}
                   >
                     <label className="block text-sm font-medium text-gray-300 mb-2">
-                      Dịch vụ quan tâm
+                      {t('cta.form.service_label')}
                     </label>
                     <select
                       name="service"
@@ -297,7 +299,7 @@ const CTASection = () => {
                       onChange={handleInputChange}
                       className="w-full px-4 py-3 bg-gray-700/50 border border-gray-600 rounded-xl text-white focus:border-cyan-500 focus:ring-2 focus:ring-cyan-500/20 transition-all duration-300"
                     >
-                      <option value="">Chọn dịch vụ</option>
+                      <option value="">{t('cta.form.service_placeholder')}</option>
                       {services.map((service, index) => (
                         <option key={index} value={service}>
                           {service}
@@ -313,7 +315,7 @@ const CTASection = () => {
                     transition={{ duration: 0.5, delay: 0.6 }}
                   >
                     <label className="block text-sm font-medium text-gray-300 mb-2">
-                      Tin nhắn
+                      {t('cta.form.message_label')}
                     </label>
                     <textarea
                       name="message"
@@ -321,7 +323,7 @@ const CTASection = () => {
                       onChange={handleInputChange}
                       rows={4}
                       className="w-full px-4 py-3 bg-gray-700/50 border border-gray-600 rounded-xl text-white placeholder-gray-400 focus:border-cyan-500 focus:ring-2 focus:ring-cyan-500/20 transition-all duration-300 resize-none"
-                      placeholder="Mô tả chi tiết về nhu cầu của bạn..."
+                      placeholder={t('cta.form.message_placeholder')}
                     />
                   </motion.div>
                   
@@ -336,11 +338,11 @@ const CTASection = () => {
                     {isSubmitting ? (
                       <>
                         <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin" />
-                        Đang gửi...
+                        {t('cta.form.submitting_text')}
                       </>
                     ) : (
                       <>
-                        Nhận Tư Vấn Miễn Phí
+                        {t('cta.form.get_consultation')}
                         <FaArrowRight className="text-sm" />
                       </>
                     )}
@@ -356,10 +358,10 @@ const CTASection = () => {
                     <FaCheckCircle className="text-3xl text-white" />
                   </div>
                   <h3 className="text-2xl font-bold text-white mb-4">
-                    Cảm ơn bạn đã liên hệ!
+                    {t('cta.form.success_title')}
                   </h3>
                   <p className="text-gray-300">
-                    Chúng tôi sẽ liên hệ với bạn trong vòng 24 giờ tới.
+                    {t('cta.form.success_message')}
                   </p>
                 </motion.div>
               )}
@@ -370,10 +372,10 @@ const CTASection = () => {
           <motion.div className="cta-benefits space-y-8">
             <div className="mb-8">
               <h3 className="text-3xl font-bold text-white mb-4">
-                Tại Sao Chọn Chúng Tôi?
+                {t('cta.why_choose.title')}
               </h3>
               <p className="text-gray-300 text-lg">
-                Hơn 500+ doanh nghiệp đã thành công cùng chúng tôi
+                {t('cta.why_choose.subtitle')}
               </p>
             </div>
             
@@ -412,7 +414,7 @@ const CTASection = () => {
               className="bg-gradient-to-r from-cyan-500/10 to-blue-600/10 rounded-2xl p-6 border border-cyan-500/20"
             >
               <h4 className="text-xl font-bold text-white mb-4">
-                Liên Hệ Trực Tiếp
+                {t('cta.contact.title')}
               </h4>
               <div className="space-y-3">
                 <div className="flex items-center gap-3 text-gray-300">

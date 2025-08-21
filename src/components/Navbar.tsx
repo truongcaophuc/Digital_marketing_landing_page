@@ -3,10 +3,13 @@
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { FaRocket, FaBars, FaTimes } from 'react-icons/fa';
+import { useLanguage } from '../contexts/LanguageContext';
+import LanguageToggle from './LanguageToggle';
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const { t } = useLanguage();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -19,11 +22,11 @@ const Navbar = () => {
   }, []);
 
   const navItems = [
-    { name: 'Trang Chủ', href: '#home' },
-    { name: 'Dịch Vụ', href: '#services' },
-    { name: 'Portfolio', href: '#portfolio' },
-    { name: 'Đánh Giá', href: '#testimonials' },
-    { name: 'Liên Hệ', href: '#contact' }
+    { name: t('nav.home'), href: '#home' },
+    { name: t('nav.services'), href: '#services' },
+    { name: t('nav.portfolio'), href: '#portfolio' },
+    { name: t('nav.testimonials'), href: '#testimonials' },
+    { name: t('nav.contact'), href: '#contact' }
   ];
 
   const scrollToSection = (href: string) => {
@@ -82,8 +85,9 @@ const Navbar = () => {
             </div>
           </div>
 
-          {/* CTA Button */}
-          <div className="hidden md:block">
+          {/* Language Toggle & CTA Button */}
+          <div className="hidden md:flex items-center space-x-4">
+            <LanguageToggle />
             <motion.button
               whileHover={{ 
                 scale: 1.05,
@@ -93,12 +97,13 @@ const Navbar = () => {
               onClick={() => scrollToSection('#contact')}
               className="bg-gradient-to-r from-cyan-500 to-blue-600 text-white px-6 py-2 rounded-full text-sm font-semibold hover:shadow-lg transition-all duration-300"
             >
-              Bắt Đầu Ngay
+              {t('hero.cta')}
             </motion.button>
           </div>
 
-          {/* Mobile menu button */}
-          <div className="md:hidden">
+          {/* Mobile menu button & Language Toggle */}
+          <div className="md:hidden flex items-center space-x-3">
+            <LanguageToggle />
             <motion.button
               whileTap={{ scale: 0.95 }}
               onClick={() => setIsOpen(!isOpen)}
@@ -140,7 +145,7 @@ const Navbar = () => {
                 onClick={() => scrollToSection('#contact')}
                 className="bg-gradient-to-r from-cyan-500 to-blue-600 text-white block px-3 py-2 rounded-md text-base font-medium w-full text-left mt-4"
               >
-                Bắt Đầu Ngay
+                {t('hero.cta')}
               </motion.button>
             </div>
           </motion.div>

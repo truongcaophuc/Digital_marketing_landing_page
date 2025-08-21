@@ -1,10 +1,8 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { useEffect } from "react";
-import { gsap } from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
 import Lottie from "lottie-react";
+import { useLanguage } from "../contexts/LanguageContext";
 
 // Import Lottie animations
 import seoAnimation from "../../public/animations/SearchEngineOptimization.json";
@@ -16,7 +14,6 @@ import mobileMarketingAnimation from "../../public/animations/MobileMarketing.js
 import influencerMarketingAnimation from "../../public/animations/InfluencerMarketing.json";
 import videoMarketingAnimation from "../../public/animations/VideoMarketing.json";
 import analyticsAnimation from "../../public/animations/AnalyticsMarketing.json";
-gsap.registerPlugin(ScrollTrigger);
 
 const services = [
   {
@@ -103,50 +100,8 @@ const services = [
 ];
 
 const ServicesSection = () => {
-  useEffect(() => {
-    // GSAP ScrollTrigger animations
-    gsap.fromTo(
-      ".service-card",
-      {
-        y: 100,
-        opacity: 0,
-        scale: 0.8,
-      },
-      {
-        y: 0,
-        opacity: 1,
-        scale: 1,
-        duration: 0.8,
-        ease: "power3.out",
-        stagger: 0.15,
-        scrollTrigger: {
-          trigger: ".services-container",
-          start: "top 80%",
-          end: "bottom 20%",
-          toggleActions: "play none none reverse",
-        },
-      }
-    );
-
-    gsap.fromTo(
-      ".services-title",
-      {
-        y: 50,
-        opacity: 0,
-      },
-      {
-        y: 0,
-        opacity: 1,
-        duration: 1,
-        ease: "power3.out",
-        scrollTrigger: {
-          trigger: ".services-container",
-          start: "top 85%",
-          toggleActions: "play none none reverse",
-        },
-      }
-    );
-  }, []);
+  const { t } = useLanguage();
+  // Removed GSAP animations to prevent conflicts with Framer Motion
 
   return (
     <section
@@ -175,7 +130,7 @@ const ServicesSection = () => {
               viewport={{ once: true }}
             >
               <span className="bg-gradient-to-r from-cyan-400 to-blue-500 bg-clip-text text-transparent">
-                Dịch Vụ Digital Marketing
+                {t("services.title")}
               </span>
             </motion.h2>
             <motion.p
@@ -185,8 +140,7 @@ const ServicesSection = () => {
               transition={{ duration: 0.8, delay: 0.2 }}
               viewport={{ once: true }}
             >
-              Giải pháp marketing số toàn diện giúp doanh nghiệp tăng trưởng bền
-              vững trong kỷ nguyên số
+              {t("services.subtitle")}
             </motion.p>
           </div>
 
@@ -196,15 +150,26 @@ const ServicesSection = () => {
               return (
                 <motion.div
                   key={index}
-                  className="service-card group relative bg-gray-800/50 backdrop-blur-sm border border-gray-700 rounded-xl  hover:border-cyan-500/50 transition-all duration-300 hover:shadow-2xl overflow-hidden "
+                  className="service-card group relative bg-gray-800/50 backdrop-blur-sm border border-gray-700 rounded-xl  hover:border-cyan-500/50 overflow-hidden "
                   whileHover={{
                     y: -10,
-                    transition: { duration: 0.3 },
+                    scale: 1.02,
+                    transition: { duration: 0.2, ease: "easeOut" },
                   }}
-                  initial={{ opacity: 0, y: 50 }}
+                  whileTap={{ scale: 0.98 }}
+                  animate={{ y: 0, scale: 1 }}
+                  transition={{
+                    duration: 0.8,
+                    delay: 0.2,
+                  }}
+                  initial={{ opacity: 0, y: 30 }}
                   whileInView={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.6, delay: index * 0.1 }}
                   viewport={{ once: true }}
+                  style={{
+                    transition: "box-shadow 0.15s ease-out",
+                  }}
+                  onHoverStart={() => {}}
+                  onHoverEnd={() => {}}
                 >
                   {/* Gradient Background */}
                   <div
@@ -219,6 +184,10 @@ const ServicesSection = () => {
                         loop={true}
                         autoplay={true}
                         style={{ height: "100%" }}
+                        rendererSettings={{
+                          preserveAspectRatio: "xMidYMid slice",
+                          progressiveLoad: true,
+                        }}
                       />
                     </div>
                   </div>
@@ -226,10 +195,10 @@ const ServicesSection = () => {
                   {/* Content */}
                   <div className="relative z-10 p-6">
                     <h3 className="text-xl font-bold text-white mb-3 group-hover:text-cyan-400 transition-colors duration-300">
-                      {service.title}
+                      {t(`services.items.${index}.title`)}
                     </h3>
                     <p className="text-gray-300 leading-relaxed text-sm">
-                      {service.description}
+                      {t(`services.items.${index}.description`)}
                     </p>
                   </div>
 
@@ -256,7 +225,7 @@ const ServicesSection = () => {
               whileTap={{ scale: 0.95 }}
               className="px-8 py-4 bg-gradient-to-r from-cyan-500 to-blue-600 text-white font-semibold rounded-lg shadow-lg hover:shadow-cyan-500/25 transition-all duration-300"
             >
-              Tư Vấn Giải Pháp Phù Hợp
+              {t('services.consultation_button')}
             </motion.button>
           </motion.div>
         </div>

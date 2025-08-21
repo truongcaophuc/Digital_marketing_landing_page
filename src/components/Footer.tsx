@@ -13,14 +13,17 @@ import {
   FaEnvelope,
   FaPhone,
   FaMapMarkerAlt,
-  FaArrowUp,
   FaRocket
 } from 'react-icons/fa';
+import { useLanguage } from '../contexts/LanguageContext';
 
 gsap.registerPlugin(ScrollTrigger);
 
 const Footer = () => {
+  const { t } = useLanguage();
+  
   useEffect(() => {
+    // GSAP animations
     // GSAP animations
     gsap.fromTo(
       '.footer-content',
@@ -43,12 +46,7 @@ const Footer = () => {
     );
   }, []);
 
-  const scrollToTop = () => {
-    window.scrollTo({
-      top: 0,
-      behavior: 'smooth'
-    });
-  };
+
 
   const socialLinks = [
     {
@@ -84,12 +82,12 @@ const Footer = () => {
   ];
 
   const quickLinks = [
-    { name: 'Trang chủ', href: '#' },
-    { name: 'Dịch vụ', href: '#services' },
-    { name: 'Portfolio', href: '#portfolio' },
-    { name: 'Về chúng tôi', href: '#about' },
-    { name: 'Blog', href: '#blog' },
-    { name: 'Liên hệ', href: '#contact' }
+    { name: t('footer.quicklinks.home'), href: '#' },
+    { name: t('footer.quicklinks.services'), href: '#services' },
+    { name: t('footer.quicklinks.portfolio'), href: '#portfolio' },
+    { name: t('footer.quicklinks.about'), href: '#about' },
+    { name: t('footer.quicklinks.blog'), href: '#blog' },
+    { name: t('footer.quicklinks.contact'), href: '#contact' }
   ];
 
   const services = [
@@ -143,7 +141,7 @@ const Footer = () => {
                 </div>
                 
                 <p className="text-gray-400 leading-relaxed mb-6">
-                  Chúng tôi giúp doanh nghiệp phát triển mạnh mẽ trong thế giới số với các chiến lược marketing hiệu quả và sáng tạo.
+                  {t('footer.description')}
                 </p>
                 
                 {/* Social Links */}
@@ -176,7 +174,7 @@ const Footer = () => {
               viewport={{ once: true }}
             >
               <h3 className="text-xl font-bold text-white mb-6">
-                Liên Kết Nhanh
+                {t('footer.quick_links')}
               </h3>
               <ul className="space-y-3">
                 {quickLinks.map((link, index) => (
@@ -285,12 +283,12 @@ const Footer = () => {
               {/* Newsletter Signup */}
               <div className="mt-8">
                 <h4 className="text-lg font-semibold text-white mb-4">
-                  Đăng Ký Nhận Tin
+                  {t('footer.newsletter.title')}
                 </h4>
                 <div className="flex gap-2">
                   <input
                     type="email"
-                    placeholder="Email của bạn"
+                    placeholder={t('footer.newsletter.placeholder')}
                     className="flex-1 px-4 py-2 bg-gray-800 border border-gray-700 rounded-lg text-white placeholder-gray-400 focus:border-cyan-500 focus:ring-2 focus:ring-cyan-500/20 transition-all duration-300"
                   />
                   <motion.button
@@ -316,7 +314,7 @@ const Footer = () => {
         >
           <div className="flex flex-col md:flex-row justify-between items-center gap-4">
             <div className="text-gray-400 text-sm">
-              © 2024 Digital Agency. Tất cả quyền được bảo lưu.
+              {t('footer.copyright')}
             </div>
             
             <div className="flex items-center gap-6">
@@ -342,19 +340,7 @@ const Footer = () => {
           </div>
         </motion.div>
       </div>
-      
-      {/* Scroll to Top Button */}
-      <motion.button
-        onClick={scrollToTop}
-        className="fixed bottom-8 right-8 w-12 h-12 bg-gradient-to-r from-cyan-500 to-blue-600 text-white rounded-full flex items-center justify-center shadow-lg hover:shadow-cyan-500/25 transition-all duration-300 z-50"
-        whileHover={{ scale: 1.1, y: -2 }}
-        whileTap={{ scale: 0.9 }}
-        initial={{ opacity: 0, y: 100 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.6, delay: 1 }}
-      >
-        <FaArrowUp className="text-sm" />
-      </motion.button>
+
     </footer>
   );
 };

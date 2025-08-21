@@ -1,96 +1,215 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { FaQuoteLeft, FaStar, FaChevronLeft, FaChevronRight } from 'react-icons/fa';
+import { useLanguage } from '../contexts/LanguageContext';
 
 gsap.registerPlugin(ScrollTrigger);
 
-const testimonials = [
+// Custom hook for typing effect
+const useTypingEffect = (text: string, speed: number = 80, trigger: boolean = true) => {
+  const [displayedText, setDisplayedText] = useState('');
+  const [isComplete, setIsComplete] = useState(false);
+
+  useEffect(() => {
+    if (!trigger) {
+      setDisplayedText('');
+      setIsComplete(false);
+      return;
+    }
+
+    let index = 0;
+    setDisplayedText('');
+    setIsComplete(false);
+
+    const timer = setInterval(() => {
+      if (index < text.length) {
+        setDisplayedText(text.slice(0, index + 1));
+        index++;
+      } else {
+        setIsComplete(true);
+        clearInterval(timer);
+      }
+    }, speed);
+
+    return () => clearInterval(timer);
+  }, [text, speed, trigger]);
+
+  return { displayedText, isComplete };
+};
+
+// Custom hook for counter animation
+const useCounterAnimation = (endValue: number, duration: number = 2000, trigger: boolean = false) => {
+  const [count, setCount] = useState(0);
+  const countRef = useRef(0);
+
+  useEffect(() => {
+    if (!trigger) return;
+
+    const startTime = Date.now();
+    const startValue = 0;
+
+    const animate = () => {
+      const now = Date.now();
+      const elapsed = now - startTime;
+      const progress = Math.min(elapsed / duration, 1);
+      
+      // Easing function for smooth animation
+      const easeOutQuart = 1 - Math.pow(1 - progress, 4);
+      let currentValue = Math.round(startValue + (endValue - startValue) * easeOutQuart);
+      
+      // Ensure we reach the exact end value
+      if (progress >= 1) {
+        currentValue = endValue;
+      }
+      
+      countRef.current = currentValue;
+      setCount(currentValue);
+
+      if (progress < 1) {
+        requestAnimationFrame(animate);
+      }
+    };
+
+    requestAnimationFrame(animate);
+  }, [endValue, duration, trigger]);
+
+  return count;
+};
+
+const getTestimonials = (t: (key: string) => string) => [
   {
     id: 1,
-    name: 'Nguyễn Văn An',
-    position: 'CEO',
-    company: 'TechViet Solutions',
+    name: t('testimonials.items.0.name'),
+    position: t('testimonials.items.0.position'),
+    company: t('testimonials.items.0.company'),
     avatar: '/api/placeholder/80/80',
     rating: 5,
-    content: 'Đội ngũ marketing của họ đã giúp chúng tôi tăng 300% doanh số chỉ trong 6 tháng. Chiến lược SEO và Social Media thực sự hiệu quả!',
-    results: '300% doanh số tăng',
+    content: t('testimonials.items.0.content'),
+    results: t('testimonials.items.0.results'),
     color: 'from-blue-500 to-indigo-600'
   },
   {
     id: 2,
-    name: 'Trần Thị Bình',
-    position: 'Marketing Director',
-    company: 'Fashion House VN',
+    name: t('testimonials.items.1.name'),
+    position: t('testimonials.items.1.position'),
+    company: t('testimonials.items.1.company'),
     avatar: '/api/placeholder/80/80',
     rating: 5,
-    content: 'Chuyên nghiệp, sáng tạo và hiệu quả. Họ đã biến thương hiệu của chúng tôi thành một cái tên được biết đến rộng rãi trên mạng xã hội.',
-    results: '250% followers tăng',
+    content: t('testimonials.items.1.content'),
+    results: t('testimonials.items.1.results'),
     color: 'from-pink-500 to-rose-600'
   },
   {
     id: 3,
-    name: 'Lê Minh Cường',
-    position: 'Founder',
-    company: 'EduTech Platform',
+    name: t('testimonials.items.2.name'),
+    position: t('testimonials.items.2.position'),
+    company: t('testimonials.items.2.company'),
     avatar: '/api/placeholder/80/80',
     rating: 5,
-    content: 'ROI từ các chiến dịch quảng cáo của họ vượt xa mong đợi. Đội ngũ luôn tận tâm và đưa ra những giải pháp sáng tạo.',
-    results: '500% ROI đạt được',
+    content: t('testimonials.items.2.content'),
+    results: t('testimonials.items.2.results'),
     color: 'from-green-500 to-emerald-600'
   },
   {
     id: 4,
-    name: 'Phạm Thu Hương',
-    position: 'Operations Manager',
-    company: 'HealthCare Plus',
+    name: t('testimonials.items.3.name'),
+    position: t('testimonials.items.3.position'),
+    company: t('testimonials.items.3.company'),
     avatar: '/api/placeholder/80/80',
     rating: 5,
-    content: 'Dịch vụ content marketing tuyệt vời! Họ đã giúp chúng tôi xây dựng uy tín và thu hút hàng nghìn khách hàng mới.',
-    results: '400% traffic tăng',
+    content: t('testimonials.items.3.content'),
+    results: t('testimonials.items.3.results'),
     color: 'from-purple-500 to-violet-600'
   },
   {
     id: 5,
-    name: 'Hoàng Đức Thành',
-    position: 'Business Owner',
-    company: 'Restaurant Chain',
+    name: t('testimonials.items.4.name'),
+    position: t('testimonials.items.4.position'),
+    company: t('testimonials.items.4.company'),
     avatar: '/api/placeholder/80/80',
     rating: 5,
-    content: 'Local SEO và Social Media Marketing đã giúp chuỗi nhà hàng của chúng tôi mở rộng thành công ra 8 chi nhánh mới.',
-    results: '8 chi nhánh mới',
+    content: t('testimonials.items.4.content'),
+    results: t('testimonials.items.4.results'),
     color: 'from-orange-500 to-red-600'
   },
   {
     id: 6,
-    name: 'Vũ Thị Mai',
-    position: 'Marketing Lead',
-    company: 'FinTech Startup',
+    name: t('testimonials.items.5.name'),
+    position: t('testimonials.items.5.position'),
+    company: t('testimonials.items.5.company'),
     avatar: '/api/placeholder/80/80',
     rating: 5,
-    content: 'Chiến lược Paid Ads của họ đã giúp chúng tôi giảm 40% chi phí khách hàng trong khi tăng 320% tỷ lệ chuyển đổi.',
-    results: '40% chi phí giảm',
+    content: t('testimonials.items.5.content'),
+    results: t('testimonials.items.5.results'),
     color: 'from-cyan-500 to-blue-600'
   }
 ];
 
 const TestimonialsSection = () => {
+  const { t } = useLanguage();
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isAutoPlaying, setIsAutoPlaying] = useState(true);
+  const [showTyping, setShowTyping] = useState(true);
+  const [statsInView, setStatsInView] = useState(false);
+  const statsRef = useRef<HTMLDivElement>(null);
+  
+  const testimonials = getTestimonials(t);
+  const currentTestimonial = testimonials[currentIndex];
+  const { displayedText, isComplete } = useTypingEffect(
+    currentTestimonial.content, 
+    30, 
+    showTyping
+  );
+  
+  // Counter animations for stats
+  const customerCount = useCounterAnimation(500, 2000, statsInView);
+  const successRate = useCounterAnimation(98, 2000, statsInView);
 
   // Auto-play functionality
   useEffect(() => {
     if (!isAutoPlaying) return;
-    
+
     const interval = setInterval(() => {
       setCurrentIndex((prev) => (prev + 1) % testimonials.length);
-    }, 5000);
-    
+    }, 7000);
+
     return () => clearInterval(interval);
   }, [isAutoPlaying]);
+  
+  // Trigger typing effect when testimonial changes
+  useEffect(() => {
+    setShowTyping(false);
+    const timer = setTimeout(() => {
+      setShowTyping(true);
+    }, 100);
+    return () => clearTimeout(timer);
+  }, [currentIndex]);
+  
+  // Intersection Observer for stats animation
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setStatsInView(true);
+        }
+      },
+      { threshold: 0.3 }
+    );
+
+    if (statsRef.current) {
+      observer.observe(statsRef.current);
+    }
+
+    return () => {
+      if (statsRef.current) {
+        observer.unobserve(statsRef.current);
+      }
+    };
+   }, []);
 
   // GSAP animations
   useEffect(() => {
@@ -150,8 +269,6 @@ const TestimonialsSection = () => {
     setIsAutoPlaying(false);
   };
 
-  const currentTestimonial = testimonials[currentIndex];
-
   return (
     <section id="testimonials" className="py-20 bg-gray-800 relative overflow-hidden">
       {/* Background Elements */}
@@ -167,12 +284,12 @@ const TestimonialsSection = () => {
           <motion.h2 
             className="testimonials-title text-4xl md:text-5xl font-bold mb-6 bg-gradient-to-r from-cyan-400 to-purple-600 bg-clip-text text-transparent"
           >
-            Khách Hàng Nói Gì Về Chúng Tôi
+            {t('testimonials.title')}
           </motion.h2>
           <motion.p 
             className="testimonials-title text-xl text-gray-300 max-w-3xl mx-auto"
           >
-            Hơn 500+ doanh nghiệp đã tin tưởng và đạt được thành công cùng chúng tôi
+            {t('testimonials.subtitle')}
           </motion.p>
         </div>
         
@@ -199,14 +316,23 @@ const TestimonialsSection = () => {
                 <FaQuoteLeft className="text-2xl text-white" />
               </motion.div>
               
-              {/* Content */}
+              {/* Content with Typing Effect */}
               <motion.blockquote
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6, delay: 0.3 }}
-                className="text-xl md:text-2xl text-gray-300 text-center leading-relaxed mb-8 italic"
+                className="text-xl md:text-2xl text-gray-300 text-center leading-relaxed mb-8 italic min-h-[120px] flex items-center justify-center"
               >
-                "{currentTestimonial.content}"
+                "{displayedText}"
+                {!isComplete && (
+                  <motion.span
+                    animate={{ opacity: [1, 0] }}
+                    transition={{ duration: 0.8, repeat: Infinity }}
+                    className="ml-1 text-cyan-400"
+                  >
+                    |
+                  </motion.span>
+                )}
               </motion.blockquote>
               
               {/* Results Badge */}
@@ -238,7 +364,7 @@ const TestimonialsSection = () => {
                     {currentTestimonial.name}
                   </h4>
                   <p className="text-gray-400 mb-2">
-                    {currentTestimonial.position} tại {currentTestimonial.company}
+                    {currentTestimonial.position} - {currentTestimonial.company}
                   </p>
                   
                   {/* Rating */}
@@ -290,8 +416,9 @@ const TestimonialsSection = () => {
           ))}
         </div>
         
-        {/* Stats */}
+        {/* Stats with Counter Animation */}
         <motion.div
+          ref={statsRef}
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.3 }}
@@ -299,10 +426,10 @@ const TestimonialsSection = () => {
           className="grid grid-cols-2 md:grid-cols-4 gap-8 text-center"
         >
           {[
-            { number: '500+', label: 'Khách hàng hài lòng' },
-            { number: '98%', label: 'Tỷ lệ thành công' },
-            { number: '24/7', label: 'Hỗ trợ khách hàng' },
-            { number: '5★', label: 'Đánh giá trung bình' }
+            { number: `${customerCount}+`, label: t('testimonials.stats.customers'), isAnimated: true },
+            { number: `${successRate}%`, label: t('testimonials.stats.success_rate'), isAnimated: true },
+            { number: '24/7', label: t('testimonials.stats.support'), isAnimated: false },
+            { number: '5★', label: t('testimonials.stats.rating'), isAnimated: false }
           ].map((stat, index) => (
             <motion.div
               key={index}
@@ -312,9 +439,13 @@ const TestimonialsSection = () => {
               viewport={{ once: true }}
               className="text-center"
             >
-              <div className="text-3xl md:text-4xl font-bold text-cyan-400 mb-2">
+              <motion.div 
+                className="text-3xl md:text-4xl font-bold text-cyan-400 mb-2"
+                animate={stat.isAnimated && statsInView ? { scale: [1, 1.1, 1] } : {}}
+                transition={{ duration: 0.5, delay: index * 0.2 }}
+              >
                 {stat.number}
-              </div>
+              </motion.div>
               <div className="text-gray-400">
                 {stat.label}
               </div>

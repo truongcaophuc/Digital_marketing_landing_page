@@ -5,83 +5,81 @@ import { useEffect, useRef } from "react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { FaExternalLinkAlt, FaArrowRight } from "react-icons/fa";
+import { useLanguage } from '../contexts/LanguageContext';
 
 gsap.registerPlugin(ScrollTrigger);
 
-const portfolioItems = [
-  {
-    id: 1,
-    title: "E-commerce Fashion Brand",
-    category: "SEO & Social Media",
-    description:
-      "Tăng 300% traffic và 250% doanh số cho thương hiệu thời trang online trong 6 tháng.",
-    image: "/api/placeholder/400/300",
-    icon: "/icons/ecommerce.svg",
-    results: ["300% Traffic tăng", "250% Doanh số tăng", "150% Followers tăng"],
-    color: "from-pink-500 to-rose-600",
-    bgColor: "bg-gradient-to-br from-pink-500/10 to-rose-600/10",
-  },
-  {
-    id: 2,
-    title: "Tech Startup Platform",
-    category: "Paid Ads & Content",
-    description:
-      "Xây dựng thương hiệu từ 0 và đạt 10K users trong 3 tháng đầu tiên.",
-    image: "/api/placeholder/400/300",
-    icon: "/icons/tech-startup.svg",
-    results: ["10K Users đạt được", "500% ROI", "50+ Partnerships"],
-    color: "from-blue-500 to-indigo-600",
-    bgColor: "bg-gradient-to-br from-blue-500/10 to-indigo-600/10",
-  },
-  {
-    id: 3,
-    title: "Restaurant Chain",
-    category: "Local SEO & Social",
-    description: "Tăng cường hiện diện địa phương và tăng 180% đặt bàn online.",
-    image: "/api/placeholder/400/300",
-    icon: "/icons/restaurant.svg",
-    results: ["180% Đặt bàn tăng", "95% Review tích cực", "8 Chi nhánh mới"],
-    color: "from-orange-500 to-red-600",
-    bgColor: "bg-gradient-to-br from-orange-500/10 to-red-600/10",
-  },
-  {
-    id: 4,
-    title: "Healthcare Services",
-    category: "Content & SEO",
-    description: "Xây dựng uy tín trực tuyến và tăng 220% lượt tư vấn online.",
-    image: "/api/placeholder/400/300",
-    icon: "/icons/healthcare.svg",
-    results: ["220% Tư vấn tăng", "400% Organic traffic", "90% Trust score"],
-    color: "from-green-500 to-emerald-600",
-    bgColor: "bg-gradient-to-br from-green-500/10 to-emerald-600/10",
-  },
-  {
-    id: 5,
-    title: "Financial Services",
-    category: "Paid Ads & Analytics",
-    description:
-      "Tối ưu hóa chiến dịch quảng cáo và giảm 40% chi phí khách hàng.",
-    image: "/api/placeholder/400/300",
-    icon: "/icons/financial.svg",
-    results: ["40% Chi phí giảm", "320% Conversion tăng", "15+ Awards"],
-    color: "from-purple-500 to-violet-600",
-    bgColor: "bg-gradient-to-br from-purple-500/10 to-violet-600/10",
-  },
-  {
-    id: 6,
-    title: "Education Platform",
-    category: "Social Media & Content",
-    description:
-      "Phát triển cộng đồng học tập online với 50K+ thành viên tích cực.",
-    image: "/api/placeholder/400/300",
-    icon: "/icons/education.svg",
-    results: ["50K+ Members", "85% Completion rate", "200+ Courses"],
-    color: "from-cyan-500 to-blue-600",
-    bgColor: "bg-gradient-to-br from-cyan-500/10 to-blue-600/10",
-  },
-];
-
 const PortfolioSection = () => {
+  const { t } = useLanguage();
+  
+  const portfolioItems = [
+    {
+      id: 1,
+      title: t('portfolio.items.0.title'),
+      category: t('portfolio.items.0.category'),
+      description: t('portfolio.items.0.description'),
+      image: "/api/placeholder/400/300",
+      icon: "/icons/ecommerce.svg",
+      results: [t('portfolio.items.0.results.0'), t('portfolio.items.0.results.1'), t('portfolio.items.0.results.2')],
+      color: "from-pink-500 to-rose-600",
+      bgColor: "bg-gradient-to-br from-pink-500/10 to-rose-600/10",
+    },
+    {
+      id: 2,
+      title: t('portfolio.items.1.title'),
+      category: t('portfolio.items.1.category'),
+      description: t('portfolio.items.1.description'),
+      image: "/api/placeholder/400/300",
+      icon: "/icons/tech-startup.svg",
+      results: [t('portfolio.items.1.results.0'), t('portfolio.items.1.results.1'), t('portfolio.items.1.results.2')],
+      color: "from-blue-500 to-indigo-600",
+      bgColor: "bg-gradient-to-br from-blue-500/10 to-indigo-600/10",
+    },
+    {
+      id: 3,
+      title: t('portfolio.items.2.title'),
+      category: t('portfolio.items.2.category'),
+      description: t('portfolio.items.2.description'),
+      image: "/api/placeholder/400/300",
+      icon: "/icons/restaurant.svg",
+      results: [t('portfolio.items.2.results.0'), t('portfolio.items.2.results.1'), t('portfolio.items.2.results.2')],
+      color: "from-orange-500 to-red-600",
+      bgColor: "bg-gradient-to-br from-orange-500/10 to-red-600/10",
+    },
+    {
+      id: 4,
+      title: t('portfolio.items.3.title'),
+      category: t('portfolio.items.3.category'),
+      description: t('portfolio.items.3.description'),
+      image: "/api/placeholder/400/300",
+      icon: "/icons/healthcare.svg",
+      results: [t('portfolio.items.3.results.0'), t('portfolio.items.3.results.1'), t('portfolio.items.3.results.2')],
+      color: "from-green-500 to-emerald-600",
+      bgColor: "bg-gradient-to-br from-green-500/10 to-emerald-600/10",
+    },
+    {
+      id: 5,
+      title: t('portfolio.items.4.title'),
+      category: t('portfolio.items.4.category'),
+      description: t('portfolio.items.4.description'),
+      image: "/api/placeholder/400/300",
+      icon: "/icons/financial.svg",
+      results: [t('portfolio.items.4.results.0'), t('portfolio.items.4.results.1'), t('portfolio.items.4.results.2')],
+      color: "from-purple-500 to-violet-600",
+      bgColor: "bg-gradient-to-br from-purple-500/10 to-violet-600/10",
+    },
+    {
+      id: 6,
+      title: t('portfolio.items.5.title'),
+      category: t('portfolio.items.5.category'),
+      description: t('portfolio.items.5.description'),
+      image: "/api/placeholder/400/300",
+      icon: "/icons/education.svg",
+      results: [t('portfolio.items.5.results.0'), t('portfolio.items.5.results.1'), t('portfolio.items.5.results.2')],
+      color: "from-cyan-500 to-blue-600",
+      bgColor: "bg-gradient-to-br from-cyan-500/10 to-blue-600/10",
+    },
+  ];
   const containerRef = useRef<HTMLDivElement>(null);
   const scrollRef = useRef<HTMLDivElement>(null);
 
@@ -174,11 +172,10 @@ const PortfolioSection = () => {
         {/* Section Header */}
         <div className="text-center mb-16">
           <motion.h2 className="portfolio-title text-4xl md:text-5xl font-bold mb-6 bg-gradient-to-r from-cyan-400 to-purple-600 bg-clip-text text-transparent">
-            Portfolio & Case Studies
+            {t('portfolio.title')}
           </motion.h2>
           <motion.p className="portfolio-title text-xl text-gray-300 max-w-3xl mx-auto mb-8">
-            Khám phá những dự án thành công mà chúng tôi đã thực hiện cho các
-            khách hàng
+            {t('portfolio.subtitle')}
           </motion.p>
 
           {/* Scroll Indicator */}
@@ -187,7 +184,7 @@ const PortfolioSection = () => {
             animate={{ x: [0, 10, 0] }}
             transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
           >
-            <span className="text-sm">Cuộn ngang để xem thêm</span>
+            <span className="text-sm">{t('portfolio.scroll_hint')}</span>
             <FaArrowRight className="text-sm" />
           </motion.div>
         </div>
@@ -222,7 +219,7 @@ const PortfolioSection = () => {
                       whileTap={{ scale: 0.9 }}
                       className="px-6 py-3 bg-white text-gray-900 font-semibold rounded-full flex items-center gap-2 hover:bg-cyan-400 transition-colors duration-300"
                     >
-                      Xem Chi Tiết
+                      {t('portfolio.view_details')}
                       <FaExternalLinkAlt className="text-sm" />
                     </motion.button>
                   </div>

@@ -1,6 +1,8 @@
 import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
 import './globals.css';
+import { LanguageProvider } from '../contexts/LanguageContext';
+import SocialMediaFloat from '../components/SocialMediaFloat';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -77,9 +79,12 @@ export default function RootLayout({
         <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5" />
       </head>
       <body className={`${inter.className} antialiased bg-gray-50`}>
-        <div className="min-h-screen">
-          {children}
-        </div>
+        <LanguageProvider>
+          <div className="min-h-screen">
+            {children}
+            <SocialMediaFloat />
+          </div>
+        </LanguageProvider>
       </body>
     </html>
   );
