@@ -5,6 +5,7 @@ import { useEffect, useRef } from "react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { FaExternalLinkAlt, FaArrowRight } from "react-icons/fa";
+import Image from 'next/image';
 import { useLanguage } from '../contexts/LanguageContext';
 
 gsap.registerPlugin(ScrollTrigger);
@@ -88,7 +89,7 @@ const PortfolioSection = () => {
     offset: ["start end", "end start"],
   });
 
-  const x = useTransform(scrollYProgress, [0, 1], ["0%", "-50%"]);
+
 
   useEffect(() => {
     if (!scrollRef.current || !containerRef.current) return;
@@ -192,7 +193,7 @@ const PortfolioSection = () => {
         {/* Horizontal Scrolling Portfolio */}
         <div className="relative">
           <div ref={scrollRef} className="flex gap-8 pb-8">
-            {portfolioItems.map((item, index) => (
+            {portfolioItems.map((item) => (
               <div
                 key={item.id}
                 className={`portfolio-card flex-shrink-0 w-96 ${item.bgColor} rounded-2xl overflow-hidden group cursor-pointer border border-gray-700 hover:border-cyan-500/50 transition-all duration-500`}
@@ -204,10 +205,12 @@ const PortfolioSection = () => {
                   />
                   <div className="absolute inset-0 flex items-center justify-center">
                     <div className="w-20 h-20 flex items-center justify-center">
-                      <img 
+                      <Image 
                         src={item.icon} 
                         alt={item.title}
-                        className="w-16 h-16 opacity-90 group-hover:opacity-100 transition-opacity duration-300"
+                        width={64}
+                        height={64}
+                        className="opacity-90 group-hover:opacity-100 transition-opacity duration-300"
                       />
                     </div>
                   </div>

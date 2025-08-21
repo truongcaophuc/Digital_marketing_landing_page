@@ -200,7 +200,6 @@ const HeroSection = () => {
     controls.rotateSpeed = 0.5;
 
     // Add floating particles around network
-    let floatingParticles;
     const particleCount = 100;
     const particleGeometry = new THREE.BufferGeometry();
     const particlePositions = new Float32Array(particleCount * 3);
@@ -240,14 +239,17 @@ const HeroSection = () => {
       blending: THREE.AdditiveBlending,
     });
 
-    floatingParticles = new THREE.Points(particleGeometry, particleMaterial);
+    const floatingParticles = new THREE.Points(
+      particleGeometry,
+      particleMaterial
+    );
     scene.add(floatingParticles);
 
     // Create simple node network
     const networkGroup = new THREE.Group();
 
-    const nodes = [];
-    const connections = [];
+const nodes: THREE.Mesh[] = [];
+    const connections: THREE.Line[] = [];
 
     // Network node positioning - optimized geometric layout
     const nodePositions = [
@@ -410,7 +412,6 @@ const HeroSection = () => {
 
         // Create line geometry
         const points = [startPos.clone(), endPos.clone()];
-        const geometry = new THREE.BufferGeometry().setFromPoints(points);
 
         // Create segmented line for progressive lighting effect
         const segments = 20; // Number of segments for smooth flow
@@ -457,8 +458,6 @@ const HeroSection = () => {
     (networkGroup as ExtendedGroup).nodes = nodes;
     (networkGroup as ExtendedGroup).connections = connections;
 
-    const centralHub = networkGroup;
-
     scene.add(networkGroup);
 
     camera.position.z = 8; // Moved camera further back to make model appear smaller
@@ -472,7 +471,7 @@ const HeroSection = () => {
     // Raycaster for hover detection
     const raycaster = new THREE.Raycaster();
     const mouse = new THREE.Vector2();
-    let hoveredSprite = null;
+    let hoveredSprite: THREE.Mesh | null = null;
 
     // Mouse hold interaction for network control
     let targetRotationX = 0;
@@ -523,7 +522,7 @@ const HeroSection = () => {
       }
 
       // Set new hovered node
-      hoveredSprite = intersects[0]?.object || null;
+      hoveredSprite = (intersects[0]?.object as THREE.Mesh) || null;
       if (hoveredSprite) {
         hoveredSprite.userData.isHovered = true;
       }
@@ -578,7 +577,7 @@ const HeroSection = () => {
 
           // Color shift to brighter hue when hovered
           const hoverHue = userData.isMainNode ? 0.5 : 0.55;
-          node.material.color.setHSL(hoverHue, 1.0, 0.9);
+          (node.material as THREE.MeshBasicMaterial).color.setHSL(hoverHue, 1.0, 0.9);
 
           // Update glow sphere color
           if (userData.glowSphere) {
@@ -593,7 +592,7 @@ const HeroSection = () => {
           const normalSaturation = 1.0;
           const normalLightness = userData.isMainNode ? 0.9 : 0.85;
 
-          node.material.color.setHSL(
+          (node.material as THREE.MeshBasicMaterial).color.setHSL(
             normalHue,
             normalSaturation,
             normalLightness
@@ -624,7 +623,9 @@ const HeroSection = () => {
 
         // Opacity effects with hover and twinkle
         if (userData.isHovered) {
-          node.material.opacity = 1.0; // Full opacity when hovered
+          if (node.material instanceof THREE.Material) {
+            node.material.opacity = 1.0; // Full opacity when hovered
+          }
           if (userData.glowSphere) {
             userData.glowSphere.material.opacity = userData.isMainNode
               ? 0.6
@@ -632,7 +633,9 @@ const HeroSection = () => {
           }
         } else {
           const baseOpacity = userData.isMainNode ? 0.8 : 0.6;
-          node.material.opacity = baseOpacity + twinkle;
+          if (node.material instanceof THREE.Material) {
+            node.material.opacity = baseOpacity + twinkle;
+          }
 
           if (userData.glowSphere) {
             const glowOpacity = userData.isMainNode ? 0.3 : 0.2;
@@ -643,7 +646,7 @@ const HeroSection = () => {
 
       // Animate segmented connections with progressive lighting
       const connections = (networkGroup as ExtendedGroup).connections || [];
-      connections.forEach((segment, index) => {
+      connections.forEach((segment) => {
         const userData = segment.userData;
         if (userData.segmentIndex === undefined) return;
 
@@ -665,11 +668,15 @@ const HeroSection = () => {
             (userData.maxOpacity - userData.baseOpacity) * intensity;
         }
 
-        segment.material.opacity = opacity;
+if (segment.material instanceof THREE.LineBasicMaterial) {
+  segment.material.opacity = opacity;
+}
 
         // Color intensity follows the wave
         const colorIntensity = opacity / userData.maxOpacity;
-        segment.material.color.setHSL(0.55, 0.8, 0.3 + colorIntensity * 0.4);
+if (segment.material instanceof THREE.LineBasicMaterial) {
+  segment.material.color.setHSL(0.55, 0.8, 0.3 + colorIntensity * 0.4);
+}
       });
 
       // Animate circle indicators for main nodes

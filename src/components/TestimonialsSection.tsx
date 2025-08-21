@@ -178,7 +178,7 @@ const TestimonialsSection = () => {
     }, 7000);
 
     return () => clearInterval(interval);
-  }, [isAutoPlaying]);
+  }, [isAutoPlaying, testimonials.length]);
   
   // Trigger typing effect when testimonial changes
   useEffect(() => {
@@ -323,7 +323,7 @@ const TestimonialsSection = () => {
                 transition={{ duration: 0.6, delay: 0.3 }}
                 className="text-xl md:text-2xl text-gray-300 text-center leading-relaxed mb-8 italic min-h-[120px] flex items-center justify-center"
               >
-                "{displayedText}"
+                &ldquo;{displayedText}&rdquo;
                 {!isComplete && (
                   <motion.span
                     animate={{ opacity: [1, 0] }}

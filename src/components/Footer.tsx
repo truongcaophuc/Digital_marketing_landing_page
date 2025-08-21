@@ -99,14 +99,7 @@ const Footer = () => {
     { name: 'Web Development', href: '#' }
   ];
 
-  const resources = [
-    { name: 'Case Studies', href: '#' },
-    { name: 'White Papers', href: '#' },
-    { name: 'Marketing Tools', href: '#' },
-    { name: 'Industry Reports', href: '#' },
-    { name: 'Webinars', href: '#' },
-    { name: 'Free Consultation', href: '#' }
-  ];
+
 
   return (
     <footer className="bg-gray-900 relative overflow-hidden">

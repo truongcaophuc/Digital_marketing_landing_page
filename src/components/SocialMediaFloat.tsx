@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import Image from "next/image";
 
 const SocialMediaFloat = () => {
   const [isScrollVisible, setIsScrollVisible] = useState(false);
@@ -67,7 +68,7 @@ const SocialMediaFloat = () => {
         aria-label="Contact via Zalo"
       >
         {/* Zalo Icon */}
-        <img src="/icons/zalo.svg" alt="Logo" className="w-8 h-8" />
+        <Image src="/icons/zalo.svg" alt="Zalo" width={32} height={32} className="w-8 h-8" />
 
         {/* Tooltip */}
         <div className="absolute right-16 top-1/2 transform -translate-y-1/2 bg-gray-800 text-white text-sm px-3 py-2 rounded-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300 whitespace-nowrap">
