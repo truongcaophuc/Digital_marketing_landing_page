@@ -1,7 +1,11 @@
 "use client";
 
 import { useEffect } from "react";
-
+declare global {
+  interface Window {
+    chatwootSDK?: any;
+  }
+}
 export default function ChatwootWidget() {
   useEffect(() => {
     console.log('ChatwootWidget: Initializing...');
@@ -13,14 +17,11 @@ export default function ChatwootWidget() {
     }
     
     // Check if script already loaded
-    if ((window as any).chatwootSDK) {
-      console.log('ChatwootWidget: SDK already loaded');
-      return;
-    }
+
     
     (function(d, t) {
-      var BASE_URL = "http://10.30.10.4:3000";
-      var g = d.createElement(t),
+      const BASE_URL = "http://10.30.10.4:3000";
+      const g = d.createElement(t),
         s = d.getElementsByTagName(t)[0];
       (g as HTMLScriptElement).src = BASE_URL + "/packs/js/sdk.js";
       (g as HTMLScriptElement).async = true;
@@ -38,9 +39,9 @@ export default function ChatwootWidget() {
         // Wait a bit for SDK to be ready
         setTimeout(() => {
           try {
-            if ((window as any).chatwootSDK) {
-              (window as any).chatwootSDK.run({
-                websiteToken: "eMtdJrqDk3pWSTCyniC5HT64",
+            if ((window).chatwootSDK) {
+              (window).chatwootSDK.run({
+                websiteToken: "KBtYvnuxpLZp9XeDNZZv28sN",
                 baseUrl: BASE_URL,
                 position: 'right',
                 type: 'standard',
